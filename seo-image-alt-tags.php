@@ -3,7 +3,7 @@
 * Plugin Name: SEO Image Tags
 * Plugin URI: http://andrewmgunn.com/
 * Description: Improve your site's SEO with the best solution for completely Search Engine Optimizing images and dynamically fixing HTML validation errors.
-* Version: 2.6.4
+* Version: 3.0
 * Author: Andrew M. Gunn
 * Author URI: http://andrewmgunn.com
 * Text Domain: seo-image-alt-tags
@@ -11,30 +11,45 @@
 */
 
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
+defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
-include_once('admin/class-seo-image-settings.php');
+/**
+* Classes and interfaces
+*/
+include_once('classes/class-sit-db.php');
+include_once('classes/class-sit-settings.php');
+//include_once('classes/class-sit-parser-backend.php');
+include_once('classes/class-sit-parser-frontend.php');
+include_once('classes/class-sit-analyzer.php');
+include_once('classes/class-sit-cleaner.php');
+include_once('classes/class-sit-reporter.php');
+
+/**
+* Include files
+*/
+include_once('inc/sit-sidebar.php');
+include_once('inc/sit-widget.php');
+//include_once('inc/script-styles.php');
+
+register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+register_activation_hook( __FILE__, 'sit_init' );
+
+function sit_init() {
+	
+	flush_rewrite_rules();
+}
 
 /**
 * Register and enqueue jQuery files to run on frontend, enqueue on admin_init
 */
-add_action( 'init', 'register_siat_scripts' );
+add_action( 'init', 'sit_enqueue_includes' );
 
-
-
-function register_siat_scripts() {
-	wp_register_script( 'siat_scripts', plugins_url('inc/siat-scripts.js', __FILE__), array('jquery'));
-	wp_register_style( 'siat_styles', plugins_url('inc/siat-styles.css', __FILE__));
-	wp_enqueue_script( 'siat_scripts' );
-	wp_enqueue_style( 'siat_styles' );
-}
-
-//add_action( 'admin_notices', 'display_activation_notice' );
-
-function display_activation_notice() {
-
-	//if (is_plugin_active('seo-image-alt-tags/seo-image-alt-tags.php')) {
-		echo '<div id="error" class="error notice is-dismissible"><p><b>SEO Image Tags</b> may not be completely up to date. <a href="tools.php?page=seo-image-tags">Click here</a> to configure settings and update database.</div>';
-	//}
+function sit_enqueue_includes() {
+	//var_dump($sit_settings);
+	wp_register_script( 'sit_js', plugins_url('inc/sit.js', __FILE__), array('jquery'));
+	wp_register_style( 'sit_css', plugins_url('inc/sit.css', __FILE__));
+	wp_enqueue_script( 'sit_js' );
+	wp_enqueue_style( 'sit_css' );
 }
 
 add_filter( 'plugin_action_links', 'seo_image_settings_link', 10, 5 );
