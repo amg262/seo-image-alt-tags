@@ -24,7 +24,7 @@ function seo_external_links_footer_scripts() { ?>
 <?php
 
 $server = $_SERVER['SERVER_NAME'];
-
+$site = get_site_url();
 ?>
 
 	<script type="text/javascript">
@@ -43,9 +43,9 @@ $server = $_SERVER['SERVER_NAME'];
 				//set url to href value if href doesnt contains
 				//base site in it, will return -1
 
-				if (($(this).attr('href') !== '#')
-						 && ($(this).attr('href') !== undefined)
-						 && ($(this).attr('href') !== null)) {
+				if ( ( $(this).attr('href') !== '#' ) && ( $(this).attr('href') !== undefined ) 
+					&& ( $(this).attr('href') !== null ) && ( $(this).attr('href') !== NaN ) 
+					&& ( $(this).attr('href') !== "" ) && ( $(this).attr('href') !== 0 ) ) {
 
 					var url = $(this).attr('href');
 					var i = url.indexOf(base);

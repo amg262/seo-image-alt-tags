@@ -27,12 +27,11 @@ class SitSettings {
       
        menu_page(
             'tools.php',
-            'Clean Media',
-            'Clean Media',
+            'SEO Image Tags',
+            'SEO Image Tags',
             'manage_options',
-            'clean-media-library',
+            'seo-image-tags',
             array( $this, 'create_sit_menu_page' )//,
-            //plugins_url('sit/assets/icon-20x20.png'), 2
         );
     }
 
@@ -40,9 +39,9 @@ class SitSettings {
         // Set class property
         $this->sit_settings = get_option( 'sit_settings' );
         ?>
-        <div class="wrap" style="max-width:90%; width:100%; float:left;">
+        <div class="sit-wrap wrap" style="max-width:90%; width:100%; float:left;">
             <div>
-            <h1>Clean Media Library</h1>
+            <h1>SEO Image Tags</h1>
             <form method="post" action="options.php">
 
             <?php
@@ -110,7 +109,6 @@ class SitSettings {
     public function sit_option_callback() {
         //Get plugin options
         
-
         global $sit_settings;
         // Enqueue Media Library Use
         wp_enqueue_media();
@@ -118,13 +116,13 @@ class SitSettings {
         // Get trail story options
         $sit_settings = (array) get_option( 'sit_settings' ); ?>
         
-            <div id="plugin-info-header" class="plugin-info header">
-                <h3><strong>Data Parsing and Reports</strong></h3>
+            <div id="sit-settings" class="sit-settings plugin-info header">
+                <h3><strong>SEO Image Tag Settings/strong></h3>
                 <hr>
 
-                <table id="parsing-reports" class="form-table">
+                <table class="form-table">
                     <tbody>
-                        <tr id="sit-deletion">
+                        <tr>
                             <?php //$key = 'delete_data'; ?>
                             <th scope="row">
                                 Disable clientside script?
@@ -147,7 +145,24 @@ class SitSettings {
                                 Disable automatic alt tags on upload?
                             </th>
                             <td>
-                                <fieldset><?php $key = 'disable_autotag'; ?>
+                                <fieldset><?php $key = 'disable_autotag_upload'; ?>
+                                    
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
+                                        Turns off action copies the image title to the alt field and saves meta data. 
+                                    </label>
+
+                                </fieldset>
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">
+                                Disable automatic alt tags on edit?
+                            </th>
+                            <td>
+                                <fieldset><?php $key = 'disable_autotag_edit'; ?>
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
@@ -164,11 +179,11 @@ class SitSettings {
                                 Enable smart tag updater database extension?
                             </th>
                             <td>
-                                <fieldset><?php $key = 'enable_smart_tag_ext'; ?>
+                                <fieldset><?php $key = 'enable_smart_tag'; ?>
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns off action copies the image title to the alt field and saves meta data. 
+                                        Turn on smart tag updater that updates alt tags if they much shorter and don't contain phrases from the title 
                                     </label>
 
                                 </fieldset>
@@ -181,11 +196,11 @@ class SitSettings {
                                 Enable PDF database extension?
                             </th>
                             <td>
-                                <fieldset><?php $key = 'enable_pdf_db_ext'; ?>
+                                <fieldset><?php $key = 'enable_pdf'; ?>
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Searches all custom fields and post meta data
+                                        Turns on extension that automatically copies PDF title to description field and updates meta data.
                                     </label>
 
                                 </fieldset>
@@ -193,16 +208,16 @@ class SitSettings {
                             </td>
                         </tr>
 
-                        <tr id="sit-db-deletion">
+                        <tr>
                             <th scope="row">
                                 Enable PDF auto tagging on upload? 
                             </th>
                             <td>
-                                <fieldset><?php $key = 'enable_pdf_autotag'; ?>
+                                <fieldset><?php $key = 'enable_pdf_upload'; ?>
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        View metrics and data of what gets deleted
+                                        Turns on automatically coping PDF title to description field on upload.
                                     </label>
                                 </fieldset>
                                 
@@ -211,19 +226,38 @@ class SitSettings {
 
                         <tr>
                             <th scope="row">
-                                Enable SEO External Link extension?
+                                Enable PDF auto tagging on edit? 
                             </th>
                             <td>
-                                <fieldset><?php $key = 'enable_seo_link_ext'; ?>
+                                <fieldset><?php $key = 'enable_pdf_edit'; ?>
+                                    
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Sends anonymous usage report statistics to remote API
+                                        Turns on automatically copying PDF title to description on edit if title has changed or description is blank.
                                     </label>
                                 </fieldset>
                                 
                             </td>
                         </tr>
-                         <tr id="sit-db-deletion">
+
+                         
+
+                        <tr>
+                            <th scope="row">
+                                Enable SEO External Link extension?
+                            </th>
+                            <td>
+                                <fieldset><?php $key = 'enable_seo_links'; ?>
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
+                                        Turns on extension that automatically changes all external links in your site to open in a new tab.
+                                    </label>
+                                </fieldset>
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
                             <th scope="row">
                                 Enable internal PDF exception?
                             </th>
@@ -232,7 +266,7 @@ class SitSettings {
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        View metrics and data of what gets deleted
+                                        Turns on exception that automatically changes all internal PDF links to open in a new tab.
                                     </label>
                                 </fieldset>
                                 

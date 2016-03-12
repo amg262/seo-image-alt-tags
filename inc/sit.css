@@ -1,0 +1,118 @@
+.icon {
+    opacity: 1;
+}
+.icon:hover {
+    opacity: .7;
+}
+.star {
+    background: url('../assets/star.png') no-repeat left center;
+    display: inline-block;
+    height:auto;
+    width:15px;
+    margin:5px;
+    float:left;
+}
+.info {
+    background: url('../assets/info.png') no-repeat left center;
+    display: inline-block;
+    height:auto;
+    width:15px;
+    margin:0 5px;
+    float:left;
+}
+.warn {
+    background: url('../assets/warn.png') no-repeat left center;
+    display: inline-block;
+    height:auto;
+    width:15px;
+    margin:0 5px;
+    float:left;
+}
+.closebtn {
+    background: url('../assets/close.png') no-repeat right center;
+    opacity: .5;
+    display: block;
+    height:32px;
+    width:32px;
+    margin:0 5px;
+    float:right;
+}
+.closebtn:hover {
+    opacity: .7;
+    cursor: pointer;
+}
+.success {
+    background: url('../assets/success.png') no-repeat left center;
+    display: inline-block;
+    height:32px;
+    width:32px;
+    margin:0 5px;
+    float:left;
+}
+.non-success {
+    background: url('../assets/error.png') no-repeat left center;
+    display: inline-block;
+    height:32px;
+    width:32px;
+    margin:0 5px;
+    float:left;
+}
+
+.sit-wrap{
+
+}
+.seo-image-tags {
+
+}
+
+.sit-settings {
+    max-width: 60%;
+    width: 100%;
+    display: block;
+    float:left;
+}
+.sit-sidebar {
+    max-width: 40%;
+    width: 100%;
+    float:right;
+}
+
+
+/**
+ * Foundation: Medium.
+ * Min-width 641px and max-width 1024px, use when QAing tablet-only issues
+ */
+@media only screen and (max-width: 64em) {
+    .sit-settings {
+        max-width: 75%;
+        width: 100%;
+        display: block;
+        float:left;
+    }
+    .sit-sidebar {
+        max-width: 25%;
+        width: 100%;
+        float:right;
+    }
+}
+
+/**
+ * Foundation: Small.
+ * Max-width 640px, mobile-only styles, use when QAing mobile issues
+ */
+@media only screen and (max-width: 40em) {
+    .sit-settings {
+        max-width: 100%;
+        width: 100%;
+        display: block;
+        float:left;
+    }
+    .sit-sidebar {
+        max-width: 100%;
+        width: 100%;
+        float:right;
+        display: block;
+    }
+}
+
+
