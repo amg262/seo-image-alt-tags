@@ -28,32 +28,13 @@ class SitParser {
         
     }
 
-    public function build_media_library_images() {
-    	if (is_admin() && is_user_logged_in()):
-    	$args = array(
-	        'post_type' => 'attachment',
-	        'post_mime_type' =>'image',
-	        //'post_status' => 'inherit',
-	        'posts_per_page' => -1,
-	        'orderby' => 'date'
-	    );
-	    $query_images = new WP_Query( $args );
-	    $images = array();
-	    foreach ( $query_images->posts as $image) {
-	        $images[]= $image->guid;
-	    }
-	    var_dump($images);
-	    return $images;
-	    endif;
-	}
-
-	public function insert_image_alt_tag($post_ID) {
+	/**public function insert_image_alt_tag($post_ID) {
 		$title = get_the_title($post_ID);
 
 		if ( ! add_post_meta( $post_ID, '_wp_attachment_image_alt', $title, true ) ) {
 		   update_post_meta ( $post_ID, '_wp_attachment_image_alt', $title );
 		}
-	}
+	}*/
 
 	/**
 	* Getting all posts that are attachments (images included) and adds the the
@@ -167,7 +148,7 @@ class SitParser {
 				$tag_str = strval($tag);
 				$tag_len = strlen($tag_str);
 				//echo $type;
-				
+
 				if (strpos($type, $image_mime) !== false) {
 
 					//if has post meta for alt tag, update it else add it.

@@ -3,7 +3,7 @@
 * Function that parses input fields
 
 */
-
+/**
 jQuery(document).ready(function($){
 	var count = 0;
 	var pathname = window.location.pathname; // Returns path only
@@ -178,5 +178,5 @@ function getImageFilename(url) {
 }
 
 
-
+*/
 
