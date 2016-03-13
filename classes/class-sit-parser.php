@@ -185,6 +185,5 @@ class SitParser {
 
 }
 
-$sit_parser_be = new sitParserBackend();
-$sit_parser_be->build_media_library_images();
+//$sit_parser_be = new SitParser();
 

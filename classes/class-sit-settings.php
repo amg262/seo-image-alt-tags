@@ -25,7 +25,7 @@ class SitSettings {
      */
     public function add_sit_menu_page() {
       
-       menu_page(
+       add_submenu_page(
             'tools.php',
             'SEO Image Tags',
             'SEO Image Tags',
@@ -39,7 +39,7 @@ class SitSettings {
         // Set class property
         $this->sit_settings = get_option( 'sit_settings' );
         ?>
-        <div class="sit-wrap wrap" style="max-width:90%; width:100%; float:left;">
+        <div class="sit-wrap wrap">
             <div>
             <h1>SEO Image Tags</h1>
             <form method="post" action="options.php">

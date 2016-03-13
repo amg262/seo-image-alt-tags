@@ -34,7 +34,7 @@ function sit_scripts() { ?>
 
 			$("img").each(function() {
 
-				if ( ($(this).attr('alt') === null) || ($(this).attr('alt') === "" ) ) {
+				if ( ($(this).attr('alt') == null) || ($(this).attr('alt') === "" ) ) {
 
 					var alt = getImageFilename( $(this).attr('src') )
 
@@ -155,8 +155,8 @@ function sit_scripts() { ?>
 			
 			if ( url !== null ) {
 				
-				var index = fullUrl.lastIndexOf("/") + 1;
-				var filename = fullUrl.substr(index);
+				var index = url.lastIndexOf("/") + 1;
+				var filename = url.substr(index);
 
 				if ( filename !== null ) {
 					return filename;
@@ -197,5 +197,3 @@ function sit_scripts() { ?>
     </script>
 
 <?php }
-
-}

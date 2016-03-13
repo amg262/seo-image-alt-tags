@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 /**
 * Classes and interfaces
 */
-include_once('classes/class-sit-db.php');
+//include_once('classes/class-sit-db.php');
 include_once('classes/class-sit-settings.php');
 include_once('classes/class-sit-parser.php');
 include_once('inc/sit-sidebar.php');
@@ -65,7 +65,7 @@ function sit_settings_link( $actions, $plugin_file )
 * Copy image title and save to Alt text field when image is uploaded. Runs anytime
 * an image is uploaded, automatically.
 */
-add_filter('add_attachment', 'insert_image_alt_tag', 10, 2);
+//add_filter('add_attachment', 'insert_image_alt_tag', 10, 2);
 //add_filter('edit_attachment', 'insert_image_alt_tag', 10, 2);
 
 function insert_image_alt_tag($post) {
