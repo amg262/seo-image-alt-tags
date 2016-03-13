@@ -49,7 +49,6 @@ function sit_enqueue_includes() {
 add_action( 'admin_init', 'sit_enqueue_includes' );
 
 function sit_enqueue_includes() {
-	//var_dump($sit_settings);
 	wp_register_style( 'sit_css', plugins_url('inc/sit.css', __FILE__));
 	wp_enqueue_style( 'sit_css' );
 }
