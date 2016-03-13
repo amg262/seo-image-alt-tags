@@ -34,15 +34,6 @@ function sit_init() {
 /**
 * Register and enqueue jQuery files to run on frontend, enqueue on admin_init
 */
-//add_action( 'wp_enqueue_scripts', 'sit_enqueue_includes' );
-
-function sit_enqueue_includes() {
-	//wp_register_script( 'sit_js', plugins_url('inc/sit.js', __FILE__), array('jquery'));
-	//wp_enqueue_script( 'sit_js' );
-}
-/**
-* Register and enqueue jQuery files to run on frontend, enqueue on admin_init
-*/
 add_action( 'admin_init', 'sit_enqueue_includes' );
 
 function sit_enqueue_includes() {
