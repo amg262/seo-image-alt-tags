@@ -65,10 +65,10 @@ function sit_settings_link( $actions, $plugin_file )
 * Copy image title and save to Alt text field when image is uploaded. Runs anytime
 * an image is uploaded, automatically.
 */
-//add_filter('add_attachment', 'insert_image_alt_tag', 10, 2);
+add_filter('add_attachment', 'insert_image_alt_tag', 10, 2);
 //add_filter('edit_attachment', 'insert_image_alt_tag', 10, 2);
 
-function insert_image_alt_tag($post) {
+function insert_image_alt_tag($post_ID) {
 	$title = get_the_title($post_ID);
 
 	if ( ! add_post_meta( $post_ID, '_wp_attachment_image_alt', $title, true ) ) {

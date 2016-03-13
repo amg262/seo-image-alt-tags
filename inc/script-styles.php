@@ -49,7 +49,7 @@ function sit_scripts() { ?>
 			count++;
 
 			}); // .each
-
+			count = 0;
 			$("a").each(function() {
 				//set url to href value if href doesnt contains
 				//base site in it, will return -1
@@ -59,9 +59,10 @@ function sit_scripts() { ?>
 					var external = isExternal( $(this).attr('href') );
 					var pdf = isPdf( $(this).attr('href') );
 
-					if ( ( external == true ) || ( pdf == true ) ) {
+					if ( ( pdf == true ) ) {
 						$(this).attr('target', '_blank');
 						count++;
+						console.log(count);
 					}
 					//if (($(this).attr('target') !== '_blank')) {
 					//	$(this).attr('target', '_blank');
