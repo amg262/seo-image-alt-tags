@@ -34,7 +34,7 @@ function sit_scripts() { ?>
 
 			$("img").each(function() {
 
-				if ( ($(this).attr('alt') == null) || ($(this).attr('alt') === "" ) ) {
+				if ( ($(this).attr('alt') == null) || ($(this).attr('alt') == "" ) ) {
 
 					var alt = getImageFilename( $(this).attr('src') )
 
@@ -59,7 +59,7 @@ function sit_scripts() { ?>
 					var external = isExternal( $(this).attr('href') );
 					var pdf = isPdf( $(this).attr('href') );
 
-					if ( ( external === true ) || ( pdf === true ) ) {
+					if ( ( external == true ) || ( pdf == true ) ) {
 						$(this).attr('target', '_blank');
 						count++;
 					}
@@ -158,10 +158,10 @@ function sit_scripts() { ?>
 				var index = url.lastIndexOf("/") + 1;
 				var filename = url.substr(index);
 
-				if ( filename !== null ) {
-					return filename;
+				//if ( filename !== null ) {
+				//	return filename;
 
-				} else {
+				//} else {
 
 					var src = url; // "static/images/banner/blue.jpg"
 					var tarr = src.split('/');      // ["static","images","banner","blue.jpg"]
@@ -187,7 +187,7 @@ function sit_scripts() { ?>
 						return str;
 					}
 
-				}
+				//}
 
 			} else {
 				return null;
