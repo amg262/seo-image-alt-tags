@@ -75,3 +75,17 @@ function insert_image_alt_tag($post_ID) {
 	   update_post_meta ( $post_ID, '_wp_attachment_image_alt', $title );
 	}
 }
+
+function name_of_my_action() {
+    if ( ! empty( $_POST ) && check_admin_referer( 'name_of_my_action', 'name_of_nonce_field' ) ) {
+    	echo 'khk';
+    }
+   // process form data
+}
+function sample_admin_notice__error() {
+	$class = 'notice notice-error';
+	$message = __( 'Irks! An error has occurred.', 'sample-text-domain' );
+
+	printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
+}
+

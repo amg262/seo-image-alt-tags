@@ -19,6 +19,7 @@ class SitSettings {
     {
         add_action( 'admin_menu', array( $this, 'add_sit_menu_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
+
     }
     /**
      * Add options page
@@ -43,9 +44,12 @@ class SitSettings {
             <div>
             <h1>SEO Image Tags</h1>
             <form method="post" action="options.php">
-
+                
             <?php
                 // This prints out all hidden setting fields
+                submit_button( 'Save Settings', 'primary', 'do_this' );
+                wp_nonce_field( array($this, 'yoyo'), 'do_this' );
+
                 settings_fields( 'sit_settings_group' );
                 do_settings_sections( 'sit-options-admin' );
                 submit_button('Save All Options');
@@ -56,7 +60,9 @@ class SitSettings {
         </div>
         <?php
     }
-
+    public function yoyo() {
+        echo 'hi';
+    }
 
     /**
      * Register and add settings
@@ -99,6 +105,7 @@ class SitSettings {
         */
         return $input;
     }
+
     /**
      * Print the Section text
      */
@@ -286,4 +293,5 @@ class SitSettings {
 
 if( is_admin() )
     $sit = new SitSettings();
+
 
