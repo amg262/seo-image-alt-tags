@@ -49,7 +49,6 @@ class SitSettings {
                 // This prints out all hidden setting fields
                 //submit_button( 'Save Settings', 'primary', 'do_this' );
                 //wp_nonce_field( array($this, 'yoyo'), 'do_this' );
-                echo '<input type"submit" name"toggle" value="Update"';
 
                 settings_fields( 'sit_settings_group' );
                 do_settings_sections( 'sit-options-admin' );
@@ -127,7 +126,7 @@ class SitSettings {
         $sit_settings = (array) get_option( 'sit_settings' ); ?>
         
             <div id="sit-settings" class="sit-settings plugin-info header">
-                <h3><strong>SEO Image Tag Settings/strong></h3>
+                <h3><strong>SEO Image Tag Settings</strong></h3>
                 <hr>
 
                 <table class="form-table">
@@ -150,7 +149,7 @@ class SitSettings {
                             </td>
                         </tr>
                         
-                        <tr>
+                        <!--<tr>/
                             <th scope="row">
                                 Disable automatic alt tags on upload?
                             </th>
@@ -166,6 +165,7 @@ class SitSettings {
                                 
                             </td>
                         </tr>
+                        -->
 
                         <tr>
                             <th scope="row">
