@@ -22,7 +22,7 @@ include_once('classes/class-sit-parser.php');
 include_once('classes/class-sit-frontend.php');
 
 include_once('inc/sit-sidebar.php');
-include_once('inc/script-styles.php');
+//include_once('inc/script-styles.php');
 
 
 register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
@@ -90,14 +90,4 @@ function sample_admin_notice__error() {
 
 	printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
 }
-
-function plugin_run_function() {
-    if (isset($_POST['button-name']))
-        if ($_POST['button-name'] == "submitted") {
-            header("Location: http://my.com/forumpage/");
-            var_dump($post);
-        }
-    
-}
-add_action('init', 'plugin_run_function');
 

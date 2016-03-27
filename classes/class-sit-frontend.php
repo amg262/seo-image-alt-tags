@@ -44,7 +44,7 @@ if ( ! class_exists( 'FrontendScripts' )) {
 
 		public function enqueue_sit_scripts() {
 
-			var $index = 0;
+			$index = 0;
 
 			foreach ( $set_options as $option ) {
 
@@ -87,7 +87,6 @@ if ( ! class_exists( 'FrontendScripts' )) {
 
 						add_action( 'wp_enqueue_scripts', array( $this, 'sit_image_scripts' ) );
 						add_action( 'wp_enqueue_scripts', array( $this, 'sit_anchor_scripts' ) );
-						break;
 
 
 				}
@@ -121,7 +120,7 @@ if ( ! class_exists( 'FrontendScripts' )) {
 
 						if ( ($(this).attr('alt') == null) || ($(this).attr('alt') == "" ) ) {
 
-							var alt = getImageFilename( $(this).attr('src') )
+							var alt = getImageFilename( $(this).attr('src') );
 
 							if ( alt !== null ) {
 								$(this).attr('alt', alt); //FALSE AS OF 2015
@@ -134,13 +133,11 @@ if ( ! class_exists( 'FrontendScripts' )) {
 					count++;
 
 					}); // .each
-
+				});
 		<?php }
-		}
 
-		/**
-		* Enqueue scripts
-		*/
+
+		
 		public function sit_anchor_scripts() { ?>
 
 			<script type="text/javascript">
