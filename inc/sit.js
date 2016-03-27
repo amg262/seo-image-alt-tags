@@ -1,61 +1,6 @@
-/*
-
-* Function that parses input fields
-
-*/
 /**
-jQuery(document).ready(function($){
-	var count = 0;
-	var pathname = window.location.pathname; // Returns path only
-	var url = window.location.href; 
-
-	var host = getHostName( url );
-	var domain = getDomain( host );
-	var name = getDomainName( domain );
-
-	$("img").each(function() {
-
-		if ( ($(this).attr('alt') === null) || ($(this).attr('alt') === "" ) ) {
-
-			var alt = getImageFilename( $(this).attr('src') )
-
-			if ( alt !== null ) {
-				$(this).attr('alt', alt); //FALSE AS OF 2015
-			} else {
-				console.log('didnt fine one');
-				$(this).attr('alt', 'error'); //FALSE AS OF 2015
-			}
-		}
-
-	count++;
-
-	}); // .each
-
-	$("a").each(function() {
-		//set url to href value if href doesnt contains
-		//base site in it, will return -1
-
-		if ( ( $(this).attr('href') !== '#' ) && ( $(this).attr('href') !== null ) ) {
-
-			var external = isExternal( $(this).attr('href') );
-			var pdf = isPdf( $(this).attr('href') );
-
-			if ( ( external === true ) || ( pdf === true ) ) {
-				$(this).attr('target', '_blank');
-				count++;
-			}
-			//if (($(this).attr('target') !== '_blank')) {
-			//	$(this).attr('target', '_blank');
-			//	count++;
-			//} //target
-		} //undefined
-
-	}); //each
-
-	return count;
-
-});
-
+* File that contains JS methods for frontside
+*/
 function getHostName(url) {
     var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
     if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
@@ -132,19 +77,17 @@ function isAdditonal() {
 
 }
 
-
-
 function getImageFilename(url) {
 	
 	if ( url !== null ) {
 		
-		var index = fullUrl.lastIndexOf("/") + 1;
-		var filename = fullUrl.substr(index);
+		var index = url.lastIndexOf("/") + 1;
+		var filename = url.substr(index);
 
-		if ( filename !== null ) {
-			return filename;
+		//if ( filename !== null ) {
+		//	return filename;
 
-		} else {
+		//} else {
 
 			var src = url; // "static/images/banner/blue.jpg"
 			var tarr = src.split('/');      // ["static","images","banner","blue.jpg"]
@@ -170,13 +113,9 @@ function getImageFilename(url) {
 				return str;
 			}
 
-		}
+		//}
 
 	} else {
 		return null;
 	}
 }
-
-
-*/
-

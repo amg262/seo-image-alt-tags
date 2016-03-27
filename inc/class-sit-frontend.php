@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
 include_once( 'sit.js' );
 
-class ClientTagScripts {
+class ClientsideScripts {
 	/**
 	* Script styles to run jQuery on pages
 	*/

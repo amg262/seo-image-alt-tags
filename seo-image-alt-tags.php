@@ -19,6 +19,8 @@ defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 //include_once('classes/class-sit-db.php');
 include_once('classes/class-sit-settings.php');
 include_once('classes/class-sit-parser.php');
+include_once('classes/class-sit-frontend.php');
+
 include_once('inc/sit-sidebar.php');
 include_once('inc/script-styles.php');
 

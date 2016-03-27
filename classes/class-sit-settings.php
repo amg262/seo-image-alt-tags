@@ -49,6 +49,7 @@ class SitSettings {
                 // This prints out all hidden setting fields
                 //submit_button( 'Save Settings', 'primary', 'do_this' );
                 //wp_nonce_field( array($this, 'yoyo'), 'do_this' );
+                echo '<input type"submit" name"toggle" value="Update"';
 
                 settings_fields( 'sit_settings_group' );
                 do_settings_sections( 'sit-options-admin' );
