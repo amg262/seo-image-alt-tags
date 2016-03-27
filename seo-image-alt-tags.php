@@ -77,7 +77,7 @@ function insert_image_alt_tag($post_ID) {
 }
 
 function name_of_my_action() {
-    if ( ! empty( $_POST ) && check_admin_referer( 'name_of_my_action', 'name_of_nonce_field' ) ) {
+    if ( ! empty( $_POST ) && check_admin_referer( 'name_of_my_action', 'do_this' ) ) {
     	echo 'khk';
     }
    // process form data
@@ -88,4 +88,14 @@ function sample_admin_notice__error() {
 
 	printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
 }
+
+function plugin_run_function() {
+    if (isset($_POST['button-name']))
+        if ($_POST['button-name'] == "submitted") {
+            header("Location: http://my.com/forumpage/");
+            var_dump($post);
+        }
+    
+}
+add_action('init', 'plugin_run_function');
 

@@ -47,8 +47,8 @@ class SitSettings {
                 
             <?php
                 // This prints out all hidden setting fields
-                submit_button( 'Save Settings', 'primary', 'do_this' );
-                wp_nonce_field( array($this, 'yoyo'), 'do_this' );
+                //submit_button( 'Save Settings', 'primary', 'do_this' );
+                //wp_nonce_field( array($this, 'yoyo'), 'do_this' );
 
                 settings_fields( 'sit_settings_group' );
                 do_settings_sections( 'sit-options-admin' );
@@ -78,7 +78,7 @@ class SitSettings {
         add_settings_section(
             'sit_settings_section', // ID
             '', // Title
-            array( $this, '' ), // Callback
+            array( $this, 'sit_info' ), // Callback
             'sit-options-admin' // Page
         );
 
@@ -105,7 +105,9 @@ class SitSettings {
         */
         return $input;
     }
-
+    public function sit_info() {
+        echo 'echo';
+    }
     /**
      * Print the Section text
      */
