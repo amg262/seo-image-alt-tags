@@ -21,65 +21,14 @@ function sit_scripts() { ?>
 
 <?php global $sit_settings; $sit_settings = (array)get_option('sit_settings'); $key = 'disable_clientside_script'; $off = $sit_settings[$key]; echo 'off'.$off; var_dump($sit_settings[$key]);//$var = get_option('wc_bom_option'); ?>
 
-	<?php if ($off !== '1') { ?>
+	<?php if ($sit_settings[$key] !== '1') { ?>
 
     <script type="text/javascript">
         
         //jQuery(document).ready(function($) {
         jQuery(document).ready(function($){
-			var count = 0;
-			var pathname = window.location.pathname; // Returns path only
-			var url = window.location.href; 
 
-			var host = getHostName( url );
-			var domain = getDomain( host );
-			var name = getDomainName( domain );
-
-			$("img").each(function() {
-
-				if ( ($(this).attr('alt') == null) || ($(this).attr('alt') == "" ) ) {
-
-					var alt = getImageFilename( $(this).attr('src') )
-
-					if ( alt !== null ) {
-						$(this).attr('alt', alt); //FALSE AS OF 2015
-					} else {
-						console.log('didnt fine one');
-						$(this).attr('alt', 'error'); //FALSE AS OF 2015
-					}
-				}
-
-			count++;
-
-			}); // .each
-			count = 0;
-			$("a").each(function() {
-				//set url to href value if href doesnt contains
-				//base site in it, will return -1
-
-				if ( ( $(this).attr('href') !== '#' ) && ( $(this).attr('href') !== null ) ) {
-
-					var external = isExternal( $(this).attr('href') );
-					var pdf = isPdf( $(this).attr('href') );
-
-					if ( ( pdf == true ) ) {
-						$(this).attr('target', '_blank');
-						count++;
-						console.log(count);
-					}
-					//if (($(this).attr('target') !== '_blank')) {
-					//	$(this).attr('target', '_blank');
-					//	count++;
-					//} //target
-				} //undefined
-
-			}); //each
-
-			return count;
-
-		});
-
-		function getHostName(url) {
+        	function getHostName(url) {
 		    var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
 		    if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
 		    	var hostName = match[2];
@@ -197,6 +146,74 @@ function sit_scripts() { ?>
 				return null;
 			}
 		}
+			var count = 0;
+			var pathname = window.location.pathname; // Returns path only
+			var url = window.location.href; 
+			var pdf;
+			var host = getHostName( url );
+			var domain = getDomain( host );
+			var name = getDomainName( domain );
+
+			$("a").each(function() {
+				//set url to href value if href doesnt contains
+				//base site in it, will return -1
+
+				if ( ( $(this).attr('href') != '#' ) && ( $(this).attr('href') != null ) ) {
+					<?php $key = 'enable_seo_links'; $off = $sit_settings[$key];
+
+					if ( $off != null) { ?>
+
+						var external = isExternal( $(this).attr('href') );
+
+						<?php $key2 = 'enable_pdf_ext'; $ext = $sit_settings[$key2];
+						//echo $ext;//var_dump($ext);
+						//var_dump($pdf);
+						//if ($off !== '1') { ?>
+							<?php if ($ext != null) { ?>
+								pdf = isPdf( $(this).attr('href') );
+							<?php } else { ?>
+								pdf = false;
+							<?php } ?>
+						
+						console.log(<?php $ext; ?>)
+						console.log(pdf);
+						<?php //} ?>
+						if ( (external == true) || (pdf == true)) {
+							$(this).attr('target', '_blank');
+							count++;
+						}
+
+						<?php } ?>
+					}
+
+
+			}); //each
+
+			return count;
+
+
+			$("img").each(function() {
+
+				if ( ($(this).attr('alt') == null) || ($(this).attr('alt') == "" ) ) {
+
+					var alt = getImageFilename( $(this).attr('src') )
+
+					if ( alt !== null ) {
+						$(this).attr('alt', alt); //FALSE AS OF 2015
+					} else {
+						console.log('didnt fine one');
+						$(this).attr('alt', 'error'); //FALSE AS OF 2015
+					}
+				}
+
+			count++;
+
+			}); // .each
+			
+
+		
+
+		});
 
     </script>
 

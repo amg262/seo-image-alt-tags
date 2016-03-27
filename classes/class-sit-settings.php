@@ -134,7 +134,7 @@ class SitSettings {
                         <tr>
                             <?php //$key = 'delete_data'; ?>
                             <th scope="row">
-                                Disable clientside script?
+                                Disable Scripts
                             </th>
                             <td>
        
@@ -143,145 +143,50 @@ class SitSettings {
 
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns offs script that dynamically adds alt attribute to img tags
+                                        Turn off <b>all</b> clientside JavaScript 
                                     </label>
+                                    </fieldset>
+
                                 
                             </td>
                         </tr>
                         
-                        <!--<tr>/
-                            <th scope="row">
-                                Disable automatic alt tags on upload?
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'disable_autotag_upload'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns off action copies the image title to the alt field and saves meta data. 
-                                    </label>
+                      
 
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
-                        -->
-
+                
+            
                         <tr>
                             <th scope="row">
-                                Disable automatic alt tags on edit?
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'disable_autotag_edit'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns off action copies the image title to the alt field and saves meta data. 
-                                    </label>
-
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">
-                                Enable smart tag updater database extension?
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'enable_smart_tag'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn on smart tag updater that updates alt tags if they much shorter and don't contain phrases from the title 
-                                    </label>
-
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
-
-                         <tr>
-                            <th scope="row">
-                                Enable PDF database extension?
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'enable_pdf'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="<?php echo $sit_settings[$key]; ?>" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns on extension that automatically copies PDF title to description field and updates meta data.
-                                    </label>
-
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">
-                                Enable PDF auto tagging on upload? 
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'enable_pdf_upload'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns on automatically coping PDF title to description field on upload.
-                                    </label>
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">
-                                Enable PDF auto tagging on edit? 
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'enable_pdf_edit'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns on automatically copying PDF title to description on edit if title has changed or description is blank.
-                                    </label>
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
-
-                         
-
-                        <tr>
-                            <th scope="row">
-                                Enable SEO External Link extension?
+                                SEO Extension
                             </th>
                             <td>
                                 <fieldset><?php $key = 'enable_seo_links'; ?>
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns on extension that automatically changes all external links in your site to open in a new tab.
+                                        Open external links in new tab
                                     </label>
+                                </fieldset>
+                                <fieldset><?php $key = 'enable_pdf_ext'; ?>
+                                    
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
+                                        Open internal PDFs in a new tab
+                                    </label>
+
+                                </fieldset>
+                                <fieldset><?php $key = 'enable_ext'; ?>
+                                    
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="text" value="<?php echo $sit_settings[$key]; ?>"/>
+                                        Open these extensions in new tab (seperate by comma)
+                                    </label>
+
                                 </fieldset>
                                 
                             </td>
                         </tr>
 
-                        <tr>
-                            <th scope="row">
-                                Enable internal PDF exception?
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'enable_internal_pdf'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turns on exception that automatically changes all internal PDF links to open in a new tab.
-                                    </label>
-                                </fieldset>
-                                
-                            </td>
-                        </tr>
+                      
 
                     </tbody>
                 </table>
