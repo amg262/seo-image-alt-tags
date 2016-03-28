@@ -1,26 +1,20 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
-//include_once( '/sit.js' );
-/**
-* Script styles to run jQuery on pages
-*/
-add_action( 'wp_enqueue_scripts', 'sit_setup' );
-
-function sit_setup() {
-
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'jquery-ui-core' );
-}
-
+class ScriptHandler {
 /**
 * Enqueue scripts
 */
-add_action('wp_footer','sit_scripts',5);
 
-function sit_scripts() { ?>
 
-<?php global $sit_settings;
+public function __construct() {
+	add_action('wp_footer', array($this,'sit_scripts'),5);
+}
+public function sit_scripts() { ?>
+
+<?php 
+
+global $sit_settings;
 $sit_settings = (array) get_option('sit_settings');
 $key = 'disable_clientside_script';
  //var_dump($sit_settings[$key]);//$var = get_option('wc_bom_option'); ?>
@@ -75,11 +69,8 @@ $key = 'disable_clientside_script';
 						//console.log(<?php echo $exts; ?>);
 						//var_dump($exts);
 						<?php endif; ?>
-					
-					
+						
 				}
-					
-
 
 			}); //each
 
@@ -109,65 +100,11 @@ $key = 'disable_clientside_script';
 
 			<?php endif; ?>
 
-			if ($.browser.chrome) {
-				//autcomplete_false();
-				$("input").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
-			    }); // .each
-
-			    $("form").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
-			    }); // .each
-
-			} else {
-				//autcomplete_off();
-				$("input").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'off');
-			    }); // .each
-
-			    $("form").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'off');
-			    }); // .each
-
-			} // end if
-
-			jQuery(document).bind('gform_post_render', function(){
-
-			if ($.browser.chrome) {
-				//autcomplete_false();
-				$("input").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
-			    }); // .each
-
-			    $("form").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
-			    }); // .each
-
-			} else {
-				//autcomplete_off();
-				$("input").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'off');
-			    }); // .each
-
-			    $("form").each(function() {
-			    	//alert("ello");
-			    	$(this).attr('autocomplete', 'off');
-			    }); // .each
-			} // end if
-		});
-        	
-			
-
 			});
 
 	    </script>
 
 <?php endif;
+	}
 }
+$ss = new ScriptHandler();
