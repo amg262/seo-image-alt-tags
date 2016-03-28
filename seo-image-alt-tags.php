@@ -39,7 +39,9 @@ function sit_init() {
 add_action( 'admin_init', 'sit_enqueue_includes' );
 
 function sit_enqueue_includes() {
-	wp_register_style( 'sit_css', plugins_url('inc/sit.css', __FILE__));
+	wp_register_script( 'sit_js', '/wp-content/plugins/seo-image-alt-tags/inc/sit.js', array('jquery'));
+		wp_enqueue_script( 'sit_js' );	
+		wp_register_style( 'sit_css', plugins_url('inc/sit.css', __FILE__));
 	wp_enqueue_style( 'sit_css' );
 }
 

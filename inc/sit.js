@@ -73,10 +73,6 @@ function isPdf(url) {
 	}
 }
 
-function isAdditonal() {
-
-}
-
 function getImageFilename(url) {
 	
 	if ( url !== null ) {
