@@ -61,7 +61,21 @@ function isExternal(url) {
         return false;
     }
 }
+function isExtension(url, exts) {
+				var match = url;
+				var type = exts.split(',');
+				//console.log(type)
 
+				for (var i = 0; i <= type.length; i++) {
+					console.log(type[i]);
+					if ( match.indexOf(type[i]) >= 0) {
+						return true;
+						
+					} else {
+						return false;
+					}
+				}
+			}
 function isPdf(url) {
 	var match = url;
 
@@ -114,4 +128,62 @@ function getImageFilename(url) {
 	} else {
 		return null;
 	}
+}
+
+function disable_gf_autofill() {
+	jQuery(document).bind('gform_post_render', function(){
+
+			if ($.browser.chrome) {
+				//autcomplete_false();
+				$("input").each(function() {
+			    	//alert("ello");
+			    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
+			    }); // .each
+
+			    $("form").each(function() {
+			    	//alert("ello");
+			    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
+			    }); // .each
+
+			} else {
+				//autcomplete_off();
+				$("input").each(function() {
+			    	//alert("ello");
+			    	$(this).attr('autocomplete', 'off');
+			    }); // .each
+
+			    $("form").each(function() {
+			    	//alert("ello");
+			    	$(this).attr('autocomplete', 'off');
+			    }); // .each
+			} // end if
+		});
+}
+
+function disable_form_autofill() {
+	if ($.browser.chrome) {
+		//autcomplete_false();
+		$("input").each(function() {
+	    	//alert("ello");
+	    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
+	    }); // .each
+
+	    $("form").each(function() {
+	    	//alert("ello");
+	    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
+	    }); // .each
+
+	} else {
+		//autcomplete_off();
+		$("input").each(function() {
+	    	//alert("ello");
+	    	$(this).attr('autocomplete', 'off');
+	    }); // .each
+
+	    $("form").each(function() {
+	    	//alert("ello");
+	    	$(this).attr('autocomplete', 'off');
+	    }); // .each
+
+	} // end if
 }

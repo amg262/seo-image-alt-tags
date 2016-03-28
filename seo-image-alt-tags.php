@@ -39,9 +39,9 @@ function sit_init() {
 add_action( 'admin_init', 'sit_enqueue_includes' );
 
 function sit_enqueue_includes() {
-	wp_register_script( 'sit_js', '/wp-content/plugins/seo-image-alt-tags/inc/sit.js', array('jquery'));
-		wp_enqueue_script( 'sit_js' );	
-		wp_register_style( 'sit_css', plugins_url('inc/sit.css', __FILE__));
+	wp_register_script( 'sit_js', plugins_url('inc/sit.js', __FILE__), array('jquery'));
+	wp_register_style( 'sit_css', plugins_url('inc/sit.css', __FILE__));
+	wp_enqueue_script( 'sit_js' );	
 	wp_enqueue_style( 'sit_css' );
 }
 
@@ -73,8 +73,11 @@ add_filter('add_attachment', 'insert_image_alt_tag', 10, 2);
 //add_filter('edit_attachment', 'insert_image_alt_tag', 10, 2);
 
 function insert_image_alt_tag($post_ID) {
-	$title = get_the_title($post_ID);
 
+	$attach = wp_get_attachment_url($post_ID);
+	$title = get_the_title($post_ID);
+	var_dump($attach);
+	var_dump($title);
 	if ( ! add_post_meta( $post_ID, '_wp_attachment_image_alt', $title, true ) ) {
 	   update_post_meta ( $post_ID, '_wp_attachment_image_alt', $title );
 	}
