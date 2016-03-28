@@ -40,7 +40,7 @@ class SitParser {
 	* Getting all posts that are attachments (images included) and adds the the
 	* alt text meta data to the image based on the title of the post
 	*/
-	public function update_tags($is_update) {
+	public function update_tags() {
 
 		$total = 0;
 		$created = 0;
@@ -48,10 +48,12 @@ class SitParser {
 		$deleted = 0;
 
 		$args = array(
-	    'post_type' => 'attachment',
-	    'numberposts' => -1,
-	    'post_status' => null,
-	    'post_parent' => null, // any parent
+	        'post_type' => 'attachment',
+	        'post_mime_type' =>'image',
+	        'post_status' => 'inherit',
+
+	        'posts_per_page' => -1,
+	        'orderby' => 'id'
 	    );
 
 		//Get all attachment posts
@@ -59,43 +61,44 @@ class SitParser {
 
 		//if there are posts
 		if ($attachments) {
-			$image_mime = 'image';
+			//$image_mime = 'image';
 
 			//Loop thru each attachment
 			foreach ($attachments as $post) {
 
 				//get post data ready,set title var to post title
-		        setup_postdata($post);
-		        $title = get_the_title($post->ID);
-				$type = get_post_mime_type($post->ID);
+		        
 				$tag = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
-				$tag_str = strval($tag);
-				$tag_len = strlen($tag_str);
+				
+				//echo $tag;
+				if (is_null($tag)) {
+					echo 'nulla';
+				}
 				//echo $type;
 
-				if (strpos($type, $image_mime) !== false) {
+				//if (strpos($type, $image_mime) !== false) {
 
-					if ( $is_update == True ) {
+					//if ( $is_update == True ) {
 
 						//if has post meta for alt tag, update it else add it.
-						if (! add_post_meta( $post->ID, '_wp_attachment_image_alt', $title, true )) {
+						//if (! add_post_meta( $post->ID, '_wp_attachment_image_alt', $post->post_title, true )) {
 
-							if ((empty($tag) || (($tag_len <= 2 ) && ($tag_str !== $title)))) {
+							//if ((empty($tag) || (($tag_len <= 2 ) && ($tag_str !== $title)))) {
 
-								update_post_meta ( $post->ID, '_wp_attachment_image_alt', $title );
-								$updated++;
-							}
+								//update_post_meta ( $post->ID, '_wp_attachment_image_alt', $post->post_title );
+								//$updated++;
+							//}
 
-						} else {
-							$created++; //update counter
+						//} else {
+							//$created++; //update counter
 
-						}
+						//}
 
-					}
+					//}
 
 					$total++;
 
-				} //end of image_mime
+				//} //end of image_mime
 
 		    } //end foreach
 
@@ -174,6 +177,7 @@ class SitParser {
 			);
 
 		//count of files updated
+		wp_reset_postdata();
 		return $count;
 	}
 

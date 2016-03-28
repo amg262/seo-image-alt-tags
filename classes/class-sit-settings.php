@@ -44,11 +44,13 @@ class SitSettings {
             <div>
             <h1>SEO Image Tags</h1>
             <form method="post" action="options.php">
-                
+                <input type="submit" value="click me">
+                 <input type="hidden" name="button-name" value="submitted">
             <?php
-                // This prints out all hidden setting fields
-                //submit_button( 'Save Settings', 'primary', 'do_this' );
-                //wp_nonce_field( array($this, 'yoyo'), 'do_this' );
+
+                // Create an nonce for a link.
+                // We pass it as a GET parameter.
+                // The target page will perform some action based on the 'do_something' parameter.
 
                 settings_fields( 'sit_settings_group' );
                 do_settings_sections( 'sit-options-admin' );
@@ -106,6 +108,11 @@ class SitSettings {
         return $input;
     }
     public function sit_info() {
+
+        if ($this->sit_settings['update']):
+            //include_once('/class-sit-parser.php');
+            batch_update_image_tags(true);
+        endif;
         echo 'echo';
     }
     /**
@@ -132,6 +139,14 @@ class SitSettings {
                 <table class="form-table">
                     <tbody>
                         <tr>
+                        <fieldset><?php $key = 'update'; ?>
+                                
+
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="submit" value="Update"  />
+                                        Turn off
+                                    </label>
+                                    </fieldset>
                             <?php //$key = 'delete_data'; ?>
                             <th scope="row">
                                 Disable Scripts
@@ -158,12 +173,30 @@ class SitSettings {
                                         Turn off alt tag updating on media upload
                                     </label>
                                 </fieldset>
-                                <fieldset><?php $key = 'disable_edit_attach'; ?>
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                PDF Extension
+                            </th>
+                            <td>
+                                <fieldset><?php $key = 'enable_pdf'; ?>
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn off alt tag updating on media edit
+                                        Turn on PDF automatic description during <b>Tag Updater</b>
                                     </label>
                                 </fieldset>
+                                <fieldset><?php $key = 'enable_add_pdf'; ?>
+                                    
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
+                                        Turn on automatic PDF description on upload.
+                                    </label>
+
+                                </fieldset>
+                                
+                                
                             </td>
                         </tr>
                          <tr>
@@ -197,86 +230,9 @@ class SitSettings {
                             </td>
                         </tr>
 
-                      <tr>
-                            <?php //$key = 'delete_data'; ?>
-                            <th scope="row">
-                                Configure
-                            </th>
-                            <td>
-       
-                                <fieldset><?php $key = 'enable_smart_parse'; ?>
-
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Make alt tags as readable as possible
-                                    </label>
-                                    </fieldset>
-                                    <fieldset><?php $key = 'tag_prefix'; ?>
-
-                                     <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="text" value="<?php echo $sit_settings[$key]; ?>"/>
-                                        Add text to be prefix on all alt tags
-                                    </label>
-                                    </fieldset>
-                                    
-                            </td>
-                        </tr>
+                     
                          
-                            <?php //$key = 'delete_data'; ?>
-                            <th scope="row">
-                                Configuration and Mobile
-                            </th>
-                            <td>
-       
-                                <fieldset><?php $key = 'enable_mailto_tel'; ?>
-                                
-
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn on automatic Tel: and Mailto: tagging
-                                    </label>
-                                    </fieldset>
-                                    <fieldset><?php $key = 'enable_encoding'; ?>
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn on email and phone encoding from bots.
-                                    </label>
-                                </fieldset>
-                               
-                               
-                            </td>
-                        </tr>
-            
-                       
-                        <h5>Less Exciting</h5>
-                        <tr>
-                            <?php //$key = 'delete_data'; ?>
-                            <th scope="row">
-                                Form Autofill
-                            </th>
-                            <td>
-       
-                                <fieldset><?php $key = 'disable_form_autofill'; ?>
-                                
-
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn off autofilling input fields on forms. 
-                                    </label>
-                                    </fieldset>
-                                    <fieldset><?php $key = 'disable_gf_form_autofill'; ?>
-                                
-
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn off autofilling inputs on Gravity Forms.
-                                    </label>
-                                    </fieldset>
-                                    
-                            </td>
-                        </tr>
-                        <tr>
-                      
+    
 
                     </tbody>
                 </table>
