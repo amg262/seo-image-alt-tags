@@ -1,6 +1,8 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
+if (! ( class_exists( 'ScriptHandler' ) ) ) {
+
 class ScriptHandler {
 /**
 * Enqueue scripts
@@ -32,10 +34,13 @@ $key = 'disable_clientside_script';
 			var host = getHostName( url );
 			var domain = getDomain( host );
 			var name = getDomainName( domain );
+$("a").each(function() {
 
-			$("a").each(function() {
+    	var reg = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+    	var r = reg.test($(this).attr('href'));
+    	console.log(r);
 				//set url to href value if href doesnt contains
-				//base site in it, will return -1
+				//base site in it, will return -1class-sit-scripts.php
 
 				if ( ( $(this).attr('href') != '#' ) && ( $(this).attr('href') != null ) ) {
 					var url =  $(this).attr('href');
@@ -106,5 +111,6 @@ $key = 'disable_clientside_script';
 
 <?php endif;
 	}
+}
 }
 $ss = new ScriptHandler();
