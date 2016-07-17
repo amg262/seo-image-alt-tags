@@ -28,8 +28,8 @@ class SitSettings {
       
        add_submenu_page(
             'tools.php',
-            'SEO Image Tags',
-            'SEO Image Tags',
+            'SEO Toolbox',
+            'SEO Toolbox',
             'manage_options',
             'seo-image-tags',
             array( $this, 'create_sit_menu_page' )//,
@@ -42,10 +42,8 @@ class SitSettings {
         ?>
         <div class="sit-wrap wrap">
             <div>
-            <h1>SEO Image Tags</h1>
+            <h1>SEO Image Toolbox</h1>
             <form method="post" action="options.php">
-                <input type="submit" value="click me">
-                 <input type="hidden" name="button-name" value="submitted">
             <?php
 
                 // Create an nonce for a link.
@@ -54,7 +52,7 @@ class SitSettings {
 
                 settings_fields( 'sit_settings_group' );
                 do_settings_sections( 'sit-options-admin' );
-                submit_button('Save All Options');
+                //submit_button('Save All Options');
             ?>
             </form>
         </div>
@@ -62,9 +60,7 @@ class SitSettings {
         </div>
         <?php
     }
-    public function yoyo() {
-        echo 'hi';
-    }
+
 
     /**
      * Register and add settings
@@ -99,21 +95,43 @@ class SitSettings {
      * @param array $input Contains all settings fields as array keys
      */
     public function sanitize( $input ) {
-        //$new_input = array();
-        /*if( isset( $input['sit_option'] ) )
-            $new_input['sit_option'] = absint( $input['sit_option'] );
-        if( isset( $input['trail_story_setting'] ) )
-            $new_input['trail_story_setting'] = absint( $input['trail_story_setting'] );
-        */
+        $new_input = array();
+        if( isset( $input['sit_settings'] ) )
+            $new_input['sit_settings'] = absint( $input['sit_settings'] );
+        
         return $input;
     }
+
+
     public function sit_info() {
 
-        if ($this->sit_settings['update']):
-            //include_once('/class-sit-parser.php');
-            batch_update_image_tags(true);
-        endif;
-        echo 'echo';
+        if ($this->sit_settings['update']) {
+          
+            $count = array();
+            $count = batch_update_image_tags(true);
+
+            echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible"><p>';
+
+            foreach( $count as $key => $value ) { 
+               echo '<strong>'.$key.':</strong>&nbsp;'.$value.'<br>';
+            }
+            update_option($sit_settings['update'], '');
+            echo '</p></div>';
+
+        } elseif ($this->sit_settings['delete']) {
+            $count = array();
+            $count = batch_update_image_tags(false);
+             echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible"><p>';
+
+            foreach( $count as $key => $value ) { 
+               echo '<strong>'.$key.':</strong>&nbsp;'.$value.'<br>';
+            }
+            update_option($sit_settings['delete'], '');
+
+            echo '</p></div>';
+
+        }
+    
     }
     /**
      * Print the Section text
@@ -126,117 +144,97 @@ class SitSettings {
         //Get plugin options
         
         global $sit_settings;
-        // Enqueue Media Library Use
         wp_enqueue_media();
         
         // Get trail story options
         $sit_settings = (array) get_option( 'sit_settings' ); ?>
         
             <div id="sit-settings" class="sit-settings plugin-info header">
-                <h3><strong>SEO Image Tag Settings</strong></h3>
-                <hr>
+    
 
                 <table class="form-table">
                     <tbody>
                         <tr>
+                        <th scope="row">
+                            Database
+                        </th>
+                        <td>
                         <fieldset><?php $key = 'update'; ?>
                                 
+                            <input class="button button-primary" id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="submit" value="Update Tags"  />
+                        
 
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="submit" value="Update"  />
-                                        Turn off
-                                    </label>
-                                    </fieldset>
-                            <?php //$key = 'delete_data'; ?>
-                            <th scope="row">
-                                Disable Scripts
-                            </th>
-                            <td>
-       
-                                <fieldset><?php $key = 'disable_clientside_script'; ?>
-                                
-
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn off <b>all</b> SEO JavaScript 
-                                    </label>
-                                    </fieldset>
-                                    <fieldset><?php $key = 'disable_img_tags'; ?>
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn off image alt tag JavaScript
-                                    </label>
+                            <?php $key = 'delete'; ?>
+                            &nbsp;
+                            <input class="button-secondary delete" id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="submit" value="Delete Tags"  />
+                        
                                 </fieldset>
-                                <fieldset><?php $key = 'disable_add_attach'; ?>
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn off alt tag updating on media upload
-                                    </label>
-                                </fieldset>
-                            
                             </td>
+                    
                         </tr>
-                        <tr>
-                            <th scope="row">
-                                PDF Extension
-                            </th>
-                            <td>
-                                <fieldset><?php $key = 'enable_pdf'; ?>
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn on PDF automatic description during <b>Tag Updater</b>
-                                    </label>
-                                </fieldset>
-                                <fieldset><?php $key = 'enable_add_pdf'; ?>
-                                    
-                                    <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Turn on automatic PDF description on upload.
-                                    </label>
-
-                                </fieldset>
-                                
-                                
-                            </td>
-                        </tr>
+                       
                          <tr>
                             <th scope="row">
-                                SEO Extension
+                                Link Targetting
                             </th>
                             <td>
                                 <fieldset><?php $key = 'enable_seo_links'; ?>
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Open external links in new tab
+                                        Open external links in new tab.
                                     </label>
                                 </fieldset>
                                 <fieldset><?php $key = 'enable_pdf_ext'; ?>
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
                                         <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
-                                        Open internal PDFs in a new tab
+                                        Open internal PDFs in a new tab.
                                     </label>
 
                                 </fieldset>
-                                <fieldset><?php $key = 'enable_ext'; ?>
+                            
+
+                               
+                            </td>
+                        </tr>
+                        
+                           <tr>
+                            <th scope="row">
+                                Plugin Scripts
+                            </th>
+                            <td>
+                                <fieldset><?php $key = 'disable_clientside_script'; ?>
                                     
                                     <label for="sit_settings[<?php echo $key; ?>]">
-                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="text" value="<?php echo $sit_settings[$key]; ?>"/>
-                                        Open these extensions in new tab (seperate by comma)
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
+                                        Disable all clientside plugin scripts.
                                     </label>
 
                                 </fieldset>
-                                
                             </td>
                         </tr>
 
-                     
-                         
-    
+                        <tr>
+                            <th scope="row">
+                                Form Autofilling
+                            </th>
+                            <td>
+                                <fieldset><?php $key = 'dab_af'; ?>
+                                    <label for="sit_settings[<?php echo $key; ?>]">
+                                        <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
+                                        Disable all forms and inputs autofilling/autocomplete ability.
+                                    </label>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th> <?php submit_button('Save Settings'); ?></th>
+
+                        </tr>
 
                     </tbody>
                 </table>
-                <?php submit_button('Save All Options'); ?>
+                
                 <hr>
                 <br><br>
 
