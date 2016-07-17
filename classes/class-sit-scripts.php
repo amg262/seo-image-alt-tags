@@ -19,7 +19,7 @@ public function sit_scripts() { ?>
 	$sit_settings = (array) get_option('sit_settings');
 	$key = 'disable_clientside_script';
 	$name = $_SERVER['SERVER_NAME'];
-	var_dump($name);
+	//var_dump($name);
 	 //var_dump($sit_settings[$key]);//$var = get_option('wc_bom_option'); ?>
 
 		<?php if (is_null($sit_settings[$key])) ://$ke//if (is_null($sit_settings[$key])) { echo 'is_null';?>
