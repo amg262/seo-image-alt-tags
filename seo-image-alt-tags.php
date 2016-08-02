@@ -8,7 +8,7 @@
 
 * Description: Improve your site's SEO with the best solution for completely Search Engine Optimizing images and dynamically fixing HTML validation errors.
 
-* Version: 3.2.5
+* Version: 3.2
 
 * Author: Andrew M. Gunn
 
