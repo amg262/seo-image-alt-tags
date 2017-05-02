@@ -2,116 +2,139 @@
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
 
-class ScriptHandler {
 /**
-* Enqueue scripts
-*/
+ * Class ScriptHandler
+ */
+class ScriptHandler {
+	/**
+	 * Enqueue scripts
+	 */
 
 
-public function __construct() {
-	add_action('wp_footer', array($this,'sit_scripts'),5);
-}
-public function sit_scripts() { ?>
+	public function __construct() {
+		add_action( 'wp_footer', [ $this, 'sit_scripts' ], 5 );
+	}
 
-	<?php 
+	/**
+	 *
+	 */
+	public function sit_scripts() { ?>
+		<?php
 
-	global $sit_settings;
-	$sit_settings = (array) get_option('sit_settings');
-	$key = 'disable_clientside_script';
-	$name = $_SERVER['SERVER_NAME'];
-	//var_dump($name);
-	 //var_dump($sit_settings[$key]);//$var = get_option('wc_bom_option'); ?>
+		global $sit_settings;
+		$sit_settings = (array) get_option( 'sit_settings' );
+		$key          = 'disable_clientside_script';
+		$name         = $_SERVER['SERVER_NAME'];
+		//var_dump($name);
+		//var_dump($sit_settings[$key]);//$var = get_option('wc_bom_option'); ?>
 
-		<?php if (is_null($sit_settings[$key])) ://$ke//if (is_null($sit_settings[$key])) { echo 'is_null';?>
-	    <script type="text/javascript">
-	        
-	        //jQuery(document).ready(function($) {
-	        jQuery(document).ready(function($){
-	        	var count = 0;
-				var pathname = window.location.pathname; // Returns path only
-				var url = window.location.href; 
-				var pdf;
+		<?php if ( $sit_settings[ $key ] === null ) ://$ke//if (is_null($sit_settings[$key])) { echo 'is_null'; ?>
+            <script type="text/javascript">
 
-				$("a").each(function() {
+                //jQuery(document).ready(function($) {
+                jQuery(document).ready(function ($) {
+                    var host4;
+                    var host3;
+                    var host2;
+                    var count = 0;
+                    var pathname = window.location.pathname; // Returns path only
+                    var url = window.location.href;
+                    var pdf;
+                    var href;
+                    var host = window.location.host;
+                    var site;
+                    var is_hash;
+                    //console.log(host);
+                    host2 = host.replace('http://', '');
 
-			
+                    host3 = host2.replace('www.', '');
+                    host4 = host3.split('.');
+                    //console.log(host2);
+                    //console.log(host3);
+                    //console.log(host4);
+                    site = host4[0];
+                    //console.log(site);
 
-					if ( ( $(this).attr('href') != '#' ) && ( $(this).attr('href') != null ) ) {
+                    $("a").each(function () {
 
-						var url =  $(this).attr('href');
+                        if ($(this).attr('href') != '#' || ($(this).attr('href') != '')) {
 
-						<?php $key2 = 'enable_pdf_ext'; 
+                            href = $(this).attr('href');
 
-						if (!(is_null($sit_settings[$key2]))): ?>
+							<?php $key2 = 'enable_pdf_ext';
 
-							var pos = url.indexOf('.pdf');
-							//console.log(pos);
-							if (pos !== -1) {
-								$(this).attr('target', '_blank');
-							}
+							if ( $sit_settings[ $key2 ] !== null): ?>
 
-						
-						<?php endif;
-
-						$key3 = 'enable_seo_links'; 
-
-						if (!(is_null($sit_settings[$key3]))): ?>
-
-							var host = window.location.host;
-							var pos = url.indexOf(host);
-							//console.log(host);
-							if (pos === -1) {
-								$(this).attr('target', '_blank');
-							}
-							
-						<?php endif; ?>	
-							
-					}
-
-				}); //each
-
-				
-				<?php $key4 = 'dab_af';
-
-				if (!(is_null($sit_settings[$key4]))) : ?>
-					if ($.browser.chrome) {
-					//autcomplete_false();
-
-						$("input").each(function() {
-					    	
-					    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
-
-					    }); // .each
-
-					    $("form").each(function() {
-					    	
-					    	$(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
-
-						}); // .each
-
-					} else {
-
-						$("input").each(function() {
-
-					    	$(this).attr('autocomplete', 'off');
+                            var pos = href.indexOf('.pdf');
+                            //console.log(pos);
+                            if (pos !== -1) {
+                                $(this).attr('target', '_blank');
+                            }
 
 
-					    }); // .each
+							<?php endif;
 
-					    $("form").each(function() {
+							$key3 = 'enable_seo_links';
 
-					    	$(this).attr('autocomplete', 'off');
+							if ( $sit_settings[ $key3 ] !== null ): ?>
 
-					    }); // .each
+                            //var host = window.location.host;
+                            var pos = href.indexOf(site);
+                            //console.log(host);
+                            if (pos === -1) {
+                                $(this).attr('target', '_blank');
+                                // console.log(this);
+                            }
 
-					} // end if
-				<?php endif; ?>
+							<?php endif; ?>
+                        }
 
-				});
+                    }); //each
 
-		    </script>
 
-	<?php endif;
+					<?php $key4 = 'dab_af';
+
+					if ( $sit_settings[ $key4 ] !== null ) : ?>
+                    if ($.browser.chrome) {
+                        //autcomplete_false();
+
+                        $("input").each(function () {
+
+                            $(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
+
+                        }); // .each
+
+                        $("form").each(function () {
+
+                            $(this).attr('autocomplete', 'false'); //FALSE AS OF 2015
+
+                        }); // .each
+
+                    } else {
+
+                        $("input").each(function () {
+
+                            $(this).attr('autocomplete', 'off');
+
+
+                        }); // .each
+
+                        $("form").each(function () {
+
+                            $(this).attr('autocomplete', 'off');
+
+                        }); // .each
+
+                    } // end if
+					<?php endif; ?>
+
+                })
+                ;
+
+            </script>
+
+		<?php endif;
 	}
 }
+
 $ss = new ScriptHandler();
