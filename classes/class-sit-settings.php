@@ -1,6 +1,9 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
+interface i_SitSettings {
+
+}
 /**
  * PLUGIN SETTINGS PAGE
  */
@@ -9,16 +12,15 @@ class SitSettings {
 	 * Holds the values to be used in the fields callbacks
 	 */
 	public $sit_settings;
-
 	/**
 	 * Start up
 	 */
-	public function __construct() {
-		add_action( 'admin_menu', [ $this, 'add_sit_menu_page' ] );
-		add_action( 'admin_init', [ $this, 'page_init' ] );
+	public function __construct()
+	{
+		add_action( 'admin_menu', array( $this, 'add_sit_menu_page' ) );
+		add_action( 'admin_init', array( $this, 'page_init' ) );
 
 	}
-
 	/**
 	 * Add options page
 	 */
@@ -26,17 +28,14 @@ class SitSettings {
 
 		add_submenu_page(
 			'tools.php',
-			'SEO Images',
-			'SEO Images',
+			'SEO Toolbox',
+			'SEO Toolbox',
 			'manage_options',
 			'seo-image-tags',
-			[ $this, 'create_sit_menu_page' ]//,
+			array( $this, 'create_sit_menu_page' )//,
 		);
 	}
 
-	/**
-	 *
-	 */
 	public function create_sit_menu_page() {
 		// Set class property
 		$this->sit_settings = get_option( 'sit_settings' );
@@ -71,68 +70,63 @@ class SitSettings {
 		register_setting(
 			'sit_settings_group', // Option group
 			'sit_settings', // Option name
-			[ $this, 'sanitize' ] // Sanitize
+			array( $this, 'sanitize' ) // Sanitize
 		);
 
 		add_settings_section(
 			'sit_settings_section', // ID
 			'', // Title
-			[ $this, 'sit_info' ], // Callback
+			array( $this, 'sit_info' ), // Callback
 			'sit-options-admin' // Page
 		);
 
 		add_settings_section(
 			'sit_option', // ID
 			'', // Title
-			[ $this, 'sit_option_callback' ], // Callback
+			array( $this, 'sit_option_callback' ), // Callback
 			'sit-options-admin', // Page
 			'sit_settings_section' // Section
 		);
 
 	}
-
 	/**
 	 * Sanitize each setting field as needed
 	 *
 	 * @param array $input Contains all settings fields as array keys
 	 */
 	public function sanitize( $input ) {
-		$new_input = [];
-		if ( isset( $input['sit_settings'] ) ) {
+		$new_input = array();
+		if( isset( $input['sit_settings'] ) )
 			$new_input['sit_settings'] = absint( $input['sit_settings'] );
-		}
 
 		return $input;
 	}
 
 
-	/**
-	 *
-	 */
 	public function sit_info() {
 
-		if ( $this->sit_settings['update'] ) {
+		if ($this->sit_settings['update']) {
 
-			$count = [];
-			$count = batch_update_image_tags( true );
+			$count = array();
+			$count = batch_update_image_tags(true);
 
 			echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible"><p>';
 
-			foreach ( $count as $key => $value ) {
-				echo '<strong>' . $key . ':</strong>&nbsp;' . $value . '<br>';
+			foreach( $count as $key => $value ) {
+				echo '<strong>'.$key.':</strong>&nbsp;'.$value.'<br>';
 			}
-			update_option( $sit_settings['update'], '' );
+			update_option($sit_settings['update'], '');
 			echo '</p></div>';
 
-		} elseif ( $this->sit_settings['delete'] ) {
-			$count = [];
-			$count = batch_update_image_tags( false );
+		} elseif ($this->sit_settings['delete']) {
+			$count = array();
+			$count = batch_update_image_tags(false);
 			echo '<div id="setting-error-settings_updated" class="updated settings-error notice is-dismissible"><p>';
 
-			foreach ( $count as $key => $value ) {
-				echo '<strong>' . $key . ':</strong>&nbsp;' . $value . '<br>';
+			foreach( $count as $key => $value ) {
+				echo '<strong>'.$key.':</strong>&nbsp;'.$value.'<br>';
 			}
-			update_option( $sit_settings['delete'], '' );
+			update_option($sit_settings['delete'], '');
 
 			echo '</p></div>';
 
@@ -167,14 +161,12 @@ class SitSettings {
                     <td>
                         <fieldset><?php $key = 'update'; ?>
 
-                            <input class="button button-primary" id='sit_settings[<?php echo $key; ?>]'
-                                   name="sit_settings[<?php echo $key; ?>]" type="submit" value="Update Tags"/>
+                            <input class="button button-primary" id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="submit" value="Update Tags"  />
 
 
 							<?php $key = 'delete'; ?>
                             &nbsp;
-                            <input class="button-secondary delete" id='sit_settings[<?php echo $key; ?>]'
-                                   name="sit_settings[<?php echo $key; ?>]" type="submit" value="Delete Tags"/>
+                            <input class="button-secondary delete" id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="submit" value="Delete Tags"  />
 
                         </fieldset>
                     </td>
@@ -188,58 +180,26 @@ class SitSettings {
                     <td>
                         <fieldset><?php $key = 'enable_seo_links'; ?>
                             <label for="sit_settings[<?php echo $key; ?>]">
-                                <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]"
-                                       type="checkbox" value="1" <?php checked( 1, $sit_settings[ $key ], true ); ?> />
+                                <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
                                 Open external links in new tab.
                             </label>
                         </fieldset>
                         <fieldset><?php $key = 'enable_pdf_ext'; ?>
 
                             <label for="sit_settings[<?php echo $key; ?>]">
-                                <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]"
-                                       type="checkbox" value="1" <?php checked( 1, $sit_settings[ $key ], true ); ?> />
+                                <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]" type="checkbox" value="1" <?php checked(1, $sit_settings[$key], true ); ?> />
                                 Open internal PDFs in a new tab.
                             </label>
 
                         </fieldset>
 
 
+
                     </td>
                 </tr>
 
                 <tr>
-                    <th scope="row">
-                        Plugin Scripts
-                    </th>
-                    <td>
-                        <fieldset><?php $key = 'disable_clientside_script'; ?>
-
-                            <label for="sit_settings[<?php echo $key; ?>]">
-                                <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]"
-                                       type="checkbox" value="1" <?php checked( 1, $sit_settings[ $key ], true ); ?> />
-                                Disable all clientside plugin scripts.
-                            </label>
-
-                        </fieldset>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th scope="row">
-                        Form Autofilling
-                    </th>
-                    <td>
-                        <fieldset><?php $key = 'dab_af'; ?>
-                            <label for="sit_settings[<?php echo $key; ?>]">
-                                <input id='sit_settings[<?php echo $key; ?>]' name="sit_settings[<?php echo $key; ?>]"
-                                       type="checkbox" value="1" <?php checked( 1, $sit_settings[ $key ], true ); ?> />
-                                Disable all forms and inputs autofilling/autocomplete ability.
-                            </label>
-                        </fieldset>
-                    </td>
-                </tr>
-                <tr>
-                    <th> <?php submit_button( 'Save Settings' ); ?></th>
+                    <th> <?php submit_button('Save Settings'); ?></th>
 
                 </tr>
 
@@ -254,8 +214,7 @@ class SitSettings {
 	<?php }
 }
 
-if ( is_admin() ) {
+if( is_admin() )
 	$sit = new SitSettings();
-}
 
 
